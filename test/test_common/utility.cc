@@ -277,9 +277,9 @@ uint64_t TestUtility::readSampleCount(Event::Dispatcher& main_dispatcher,
   return sample_count;
 }
 
-std::list<Network::DnsResponse>
+std::vector<Network::DnsResponse>
 TestUtility::makeDnsResponse(const std::list<std::string>& addresses, std::chrono::seconds ttl) {
-  std::list<Network::DnsResponse> ret;
+  std::vector<Network::DnsResponse> ret;
   for (const auto& address : addresses) {
     ret.emplace_back(Network::DnsResponse(Network::Utility::parseInternetAddress(address), ttl));
   }

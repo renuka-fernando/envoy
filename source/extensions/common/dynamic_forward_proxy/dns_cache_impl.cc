@@ -281,14 +281,14 @@ void DnsCacheImpl::startResolve(const std::string& host, PrimaryHostInfo& host_i
   host_info.active_query_ =
       resolver_->resolve(host_info.host_info_->resolvedHost(), dns_lookup_family_,
                          [this, host](Network::DnsResolver::ResolutionStatus status,
-                                      std::list<Network::DnsResponse>&& response) {
+                                      std::vector<Network::DnsResponse>&& response) {
                            finishResolve(host, status, std::move(response));
                          });
 }
 
 void DnsCacheImpl::finishResolve(const std::string& host,
                                  Network::DnsResolver::ResolutionStatus status,
-                                 std::list<Network::DnsResponse>&& response, bool from_cache) {
+                                 std::vector<Network::DnsResponse>&& response, bool from_cache) {
   ASSERT(main_thread_dispatcher_.isThreadSafe());
   ENVOY_LOG_EVENT(debug, "main thread resolve complete for host '{}': {}", host, accumulateToString<Network::DnsResponse>(response, [](const auto& dns_response){ return dns_response.address_->asString(); }));
 
@@ -457,7 +457,7 @@ void DnsCacheImpl::loadCacheEntries(
       return KeyValueStore::Iterate::Break;
     }
     stats_.cache_load_.inc();
-    std::list<Network::DnsResponse> response;
+    std::vector<Network::DnsResponse> response;
     // TODO(alyssawilk) change finishResolve to actually use the TTL rather than
     // putting 0 here, return the remaining TTL or indicate the result is stale.
     response.emplace_back(Network::DnsResponse(address, std::chrono::seconds(0) /* ttl */));

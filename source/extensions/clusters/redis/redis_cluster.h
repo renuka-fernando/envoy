@@ -206,7 +206,7 @@ private:
 
     ~RedisDiscoverySession() override;
 
-    void registerDiscoveryAddress(std::list<Network::DnsResponse>&& response, const uint32_t port);
+    void registerDiscoveryAddress(std::vector<Network::DnsResponse>&& response, const uint32_t port);
 
     // Start discovery against a random host from existing hosts
     void startResolveRedis();

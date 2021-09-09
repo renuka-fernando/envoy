@@ -180,7 +180,7 @@ void RedisCluster::DnsDiscoveryResolveTarget::startResolveDns() {
   active_query_ = parent_.dns_resolver_->resolve(
       dns_address_, parent_.dns_lookup_family_,
       [this](Network::DnsResolver::ResolutionStatus status,
-             std::list<Network::DnsResponse>&& response) -> void {
+             std::vector<Network::DnsResponse>&& response) -> void {
         active_query_ = nullptr;
         ENVOY_LOG(trace, "async DNS resolution complete for {}", dns_address_);
         if (status == Network::DnsResolver::ResolutionStatus::Failure || response.empty()) {
@@ -270,7 +270,7 @@ void RedisCluster::RedisDiscoveryClient::onEvent(Network::ConnectionEvent event)
 }
 
 void RedisCluster::RedisDiscoverySession::registerDiscoveryAddress(
-    std::list<Envoy::Network::DnsResponse>&& response, const uint32_t port) {
+    std::vector<Envoy::Network::DnsResponse>&& response, const uint32_t port) {
   // Since the address from DNS does not have port, we need to make a new address that has
   // port in it.
   for (const Network::DnsResponse& res : response) {

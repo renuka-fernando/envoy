@@ -130,7 +130,7 @@ void DnsResolverImpl::PendingResolution::onAresGetAddrInfoCallback(int status, i
     }
   }
 
-  std::list<DnsResponse> address_list;
+  std::vector<DnsResponse> address_list;
   ResolutionStatus resolution_status;
   if (status == ARES_SUCCESS) {
     resolution_status = ResolutionStatus::Success;

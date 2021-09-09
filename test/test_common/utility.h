@@ -309,10 +309,10 @@ public:
   static Stats::TextReadoutSharedPtr findTextReadout(Stats::Store& store, const std::string& name);
 
   /**
-   * Convert a string list of IP addresses into a list of network addresses usable for DNS
+   * Convert a string list of IP addresses into a vector of network addresses usable for DNS
    * response testing.
    */
-  static std::list<Network::DnsResponse>
+  static std::vector<Network::DnsResponse>
   makeDnsResponse(const std::list<std::string>& addresses,
                   std::chrono::seconds = std::chrono::seconds(0));
 

@@ -107,7 +107,7 @@ private:
     // onDNSServiceGetAddrInfoReply callback.
     struct FinalResponse {
       ResolutionStatus status_;
-      std::list<DnsResponse> responses_;
+      std::vector<DnsResponse> responses_;
     };
 
     AppleDnsResolverImpl& parent_;

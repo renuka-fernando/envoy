@@ -60,7 +60,7 @@ void DnsFilterResolver::resolveExternalQuery(DnsQueryContextPtr context,
   // Resolve the address in the query and add to the resolved_hosts vector
   resolver_->resolve(domain_query->name_, lookup_family,
                      [this, id](Network::DnsResolver::ResolutionStatus status,
-                                std::list<Network::DnsResponse>&& response) -> void {
+                                std::vector<Network::DnsResponse>&& response) -> void {
                        auto ctx_iter = lookups_.find(id);
 
                        // If the context is not in the map, the lookup has timed out and was removed

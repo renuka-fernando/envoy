@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 # shellcheck source=ci/envoy_build_sha.sh
 . "$(dirname "$0")"/envoy_build_sha.sh
@@ -61,10 +61,10 @@ mkdir -p "${ENVOY_DOCKER_BUILD_DIR}"
 
 export ENVOY_BUILD_IMAGE="${IMAGE_NAME}:${IMAGE_ID}"
 
-time docker pull "${ENVOY_BUILD_IMAGE}"
+# time docker pull "${ENVOY_BUILD_IMAGE}"
 
 # Since we specify an explicit hash, docker-run will pull from the remote repo if missing.
-docker run --rm \
+docker run --name envoy-build-keep \
        "${ENVOY_DOCKER_OPTIONS[@]}" \
        -v "${ENVOY_DOCKER_BUILD_DIR}":"${BUILD_DIR_MOUNT_DEST}" \
        -v "${SOURCE_DIR}":"${SOURCE_DIR_MOUNT_DEST}" \

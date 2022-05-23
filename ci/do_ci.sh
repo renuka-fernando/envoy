@@ -2,7 +2,7 @@
 
 # Run a CI build/test target, e.g. docs, asan.
 
-set -e
+set -ex
 
 
 build_setup_args=""
